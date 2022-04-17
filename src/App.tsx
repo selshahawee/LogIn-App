@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
+import { SignInPage } from './pages/SignInPage';
 import './App.css';
+import {  Route, Routes } from 'react-router-dom';
+import SignUpPage from './pages/SignUpPage';
+import { useSelector } from 'react-redux';
+import {RootState}  from './reducer/store';
+const user= useSelector((state:RootState )=> state.app.user);
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<SignInPage/>} />
+      </Routes>
     </div>
   );
 }
