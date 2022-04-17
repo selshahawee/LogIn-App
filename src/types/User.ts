@@ -7,6 +7,7 @@ export type User    = {
     password: string;
 }
  
+export type Token = string;
 
 export type LoginRespone = {
     message: string;

@@ -8,16 +8,17 @@ const initialState: AppStateType = {
 
 export const appSlice = createSlice({
     name: 'app',
-    initialState: {
-        user: {},
-    },
+    initialState,
     reducers: {
         setUser: (state, { payload }) => {
             state.user = payload;
         },
+        setToken: (state, { payload }) => {
+            state.token = payload;
+        }
     },
 });
 
 
 export default appSlice.reducer;
-export const { setUser } = appSlice.actions;
+export const { setUser , setToken } = appSlice.actions;
