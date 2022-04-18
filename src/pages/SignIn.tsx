@@ -1,10 +1,22 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { User } from "../types/User";
 import { meAPI, signInAPI } from "../api/index";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../reducer/store";
+import { setToken, setUser } from "../reducer/app";
 export function SignIn(): JSX.Element {
+  const dispatch = useDispatch();
+
+  async function saveUser(token: string) {
+    const user = await meAPI(token);
+
+    dispatch(setUser(user));
+    console.log({ user });
+  }
+
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -16,10 +28,11 @@ export function SignIn(): JSX.Element {
     onSubmit: async (values) => {
       const data = await signInAPI(values.email, values.password);
 
-        localStorage.setItem("auth-token", data.token);
-        
+      localStorage.setItem("auth-token", data.token);
+      dispatch(setToken(data.token));
+      saveUser(data.token);
+
       navigate("/");
-      console.log({ data });
     },
   });
 
